@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>رياض الخضمي | استشارات مالية ومحاسبية احترافية</title>
+    <title>رياض الخضمي | استشارات مالية وضريبية احترافية</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -11,13 +11,55 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        body { font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
+        body { font-family: 'Cairo', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
         .gradient-primary { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); }
-        .glass-effect { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .hover-glow:hover { box-shadow: 0 0 20px rgba(245, 158, 11, 0.2); }
+        
+        /* تأثير البطاقات التفاعلية */
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.15);
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: #f59e0b;
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+            transform-origin: right;
+        }
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        /* توهج ذهبي ناعم للبطاقة المميزة */
+        .featured-card {
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            box-shadow: 0 10px 30px rgba(245, 158, 11, 0.05);
+        }
+
         .nav-link { position: relative; }
         .nav-link::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -4px; right: 0; background: #f59e0b; transition: width 0.3s; }
         .nav-link:hover::after { width: 100%; }
+
+        /* تحريك الخلفية بشكل هادئ */
+        @keyframes slow-pan {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animated-bg {
+            background-size: 200% 200%;
+            animation: slow-pan 20s linear infinite;
+        }
     </style>
 </head>
 
@@ -34,20 +76,19 @@
             </div>
             <nav class="hidden md:flex items-center space-x-8 space-x-reverse font-semibold">
                 <a href="#" class="nav-link text-slate-600 hover:text-slate-900">الرئيسية</a>
-                <a href="#about" class="nav-link text-slate-600 hover:text-slate-900">من نحن</a>
                 <a href="#services" class="nav-link text-slate-600 hover:text-slate-900">خدماتنا</a>
                 <a href="#contact" class="bg-slate-900 text-amber-500 border border-amber-500/30 px-6 py-2 rounded-lg hover:bg-amber-500 hover:text-white transition-all duration-300 shadow-lg">تواصل معي</a>
             </nav>
         </div>
     </header>
 
-    <section class="gradient-primary text-white py-32 px-6 relative overflow-hidden">
+    <section class="gradient-primary animated-bg text-white py-32 px-6 relative overflow-hidden">
         <div class="absolute top-0 right-0 w-full h-full opacity-10 pointer-events-none">
             <svg width="100%" height="100%"><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="0.5"/></pattern><rect width="100%" height="100%" fill="url(#grid)" /></svg>
         </div>
         
         <div class="container mx-auto text-center relative z-10" data-aos="fade-up">
-            <span class="inline-block px-4 py-1 border border-amber-500/50 rounded-full text-amber-500 text-sm mb-6 bg-amber-500/5">شريكك الموثوق في النجاح المالي</span>
+            <span class="inline-block px-4 py-1 border border-amber-500/50 rounded-full text-amber-500 text-sm mb-6 bg-amber-500/5 backdrop-blur-sm">شريكك الموثوق في النجاح المالي</span>
             <h2 class="text-5xl md:text-7xl font-extrabold mb-8 leading-[1.2]">دقة تصنع <span class="text-amber-500">الفارق</span><br>ورؤية تبني <span class="text-amber-500">المستقبل</span></h2>
             <p class="text-lg md:text-xl mb-12 text-slate-400 max-w-3xl mx-auto leading-relaxed">نحن لا ندير الأرقام فحسب، بل نصيغ منها استراتيجيات تدفع أعمالك نحو القمة في سوق مليء بالتحديات.</p>
             
@@ -63,22 +104,14 @@
     </section>
 
     <section class="py-12 bg-white border-b border-slate-100">
-        <div class="container mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-            <div data-aos="fade-up" data-aos-delay="100">
-                <p class="text-3xl font-bold text-slate-900">+10</p>
-                <p class="text-slate-500 text-sm">سنوات خبرة</p>
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-8 text-center max-w-4xl">
+            <div class="flex items-center justify-center gap-4" data-aos="fade-left">
+                <div class="p-3 bg-amber-50 rounded-full text-amber-600"><i data-lucide="check-circle-2"></i></div>
+                <p class="text-xl font-bold text-slate-900">100% دقة محاسبية وضريبية</p>
             </div>
-            <div data-aos="fade-up" data-aos-delay="200">
-                <p class="text-3xl font-bold text-slate-900">+50</p>
-                <p class="text-slate-500 text-sm">شركة مستفيدة</p>
-            </div>
-            <div data-aos="fade-up" data-aos-delay="300">
-                <p class="text-3xl font-bold text-slate-900">100%</p>
-                <p class="text-slate-500 text-sm">دقة محاسبية</p>
-            </div>
-            <div data-aos="fade-up" data-aos-delay="400">
-                <p class="text-3xl font-bold text-slate-900">24/7</p>
-                <p class="text-slate-500 text-sm">دعم فني</p>
+            <div class="flex items-center justify-center gap-4" data-aos="fade-right">
+                <div class="p-3 bg-amber-50 rounded-full text-amber-600"><i data-lucide="clock"></i></div>
+                <p class="text-xl font-bold text-slate-900">دعم فني استشاري 24/7</p>
             </div>
         </div>
     </section>
@@ -87,11 +120,19 @@
         <div class="text-center mb-20" data-aos="fade-up">
             <h3 class="text-4xl font-extrabold text-slate-900 mb-4">خدماتنا الاستشارية</h3>
             <div class="w-20 h-1.5 bg-amber-500 mx-auto rounded-full mb-6"></div>
-            <p class="text-slate-500 max-w-xl mx-auto text-lg">نقدم حلولاً مالية ذكية تغطي كافة جوانب دورتك المحاسبية بأعلى معايير الجودة.</p>
+            <p class="text-slate-500 max-w-xl mx-auto text-lg">حلول مالية وضريبية ذكية مصممة لحماية وتنمية أعمالك.</p>
         </div>
         
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="bg-white p-10 rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 hover-glow transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="service-card featured-card bg-white p-10 rounded-3xl border-slate-100" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-14 h-14 bg-amber-500 text-slate-900 rounded-2xl flex items-center justify-center mb-8 shadow-lg">
+                    <i data-lucide="calculator" class="w-8 h-8"></i>
+                </div>
+                <h4 class="text-2xl font-bold mb-4 text-slate-900">الضرائب والزكاة</h4>
+                <p class="text-slate-600 leading-relaxed">تقديم الاستشارات الضريبية المتخصصة، إعداد الإقرارات، وضمان الامتثال التام للقوانين والتدقيق الضريبي.</p>
+            </div>
+
+            <div class="service-card bg-white p-10 rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100" data-aos="fade-up" data-aos-delay="200">
                 <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mb-8">
                     <i data-lucide="file-check-2" class="w-8 h-8"></i>
                 </div>
@@ -99,16 +140,15 @@
                 <p class="text-slate-600 leading-relaxed">فحص دقيق للقوائم المالية لضمان الشفافية والامتثال الكامل للمعايير الدولية (IFRS).</p>
             </div>
 
-            <div class="bg-slate-900 p-10 rounded-3xl shadow-2xl border border-slate-800 hover-glow transition-all duration-300 relative overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
-                <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/10 rounded-full blur-3xl group-hover:bg-amber-500/20 transition-all"></div>
-                <div class="w-14 h-14 bg-amber-500 text-slate-900 rounded-2xl flex items-center justify-center mb-8 relative z-10">
+            <div class="service-card bg-slate-900 p-10 rounded-3xl shadow-2xl border border-slate-800 group" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-14 h-14 bg-amber-500 text-slate-900 rounded-2xl flex items-center justify-center mb-8 relative z-10 group-hover:rotate-12 transition-transform">
                     <i data-lucide="trending-up" class="w-8 h-8"></i>
                 </div>
                 <h4 class="text-2xl font-bold mb-4 text-white relative z-10">التخطيط المالي</h4>
                 <p class="text-slate-400 leading-relaxed relative z-10">تحليل التدفقات النقدية وإعداد الموازنات التقديرية التي تضمن استدامة نمو منشأتك.</p>
             </div>
 
-            <div class="bg-white p-10 rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100 hover-glow transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+            <div class="service-card bg-white p-10 rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-100" data-aos="fade-up" data-aos-delay="400">
                 <div class="w-14 h-14 bg-amber-100 text-amber-600 rounded-2xl flex items-center justify-center mb-8">
                     <i data-lucide="monitor-dot" class="w-8 h-8"></i>
                 </div>
@@ -123,7 +163,7 @@
             <div class="bg-white rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col md:flex-row" data-aos="zoom-in">
                 <div class="md:w-5/12 p-12 bg-slate-950 text-white relative">
                     <h3 class="text-3xl font-bold mb-8">لنصنع النجاح معاً</h3>
-                    <p class="text-slate-400 mb-12">فريقنا جاهز لتقديم الاستشارة الفورية والحلول المبتكرة لتحدياتكم المالية.</p>
+                    <p class="text-slate-400 mb-12">فريقنا جاهز لتقديم الاستشارة الفورية والحلول المبتكرة لتحدياتكم المالية والضريبية.</p>
                     
                     <div class="space-y-8">
                         <a href="tel:771336725" class="flex items-center gap-6 group">
@@ -136,19 +176,19 @@
                             <div class="w-12 h-12 bg-green-500/10 border border-green-500/20 rounded-full flex items-center justify-center group-hover:bg-green-500 transition-all group-hover:text-white text-green-500">
                                 <i data-lucide="message-square"></i>
                             </div>
-                            <span class="text-lg">واتساب مباشر</span>
+                            <span class="text-lg font-bold">واتساب مباشر</span>
                         </a>
                     </div>
                 </div>
 
-                <div class="md:w-7/12 p-12 flex items-center justify-center text-center bg-gray-50">
+                <div class="md:w-7/12 p-12 flex items-center justify-center text-center bg-gray-50 relative">
                     <div class="max-w-xs">
-                        <div class="w-24 h-24 bg-white rounded-3xl mx-auto mb-8 flex items-center justify-center text-5xl shadow-xl border border-slate-100 transform rotate-12 group hover:rotate-0 transition-transform duration-500">
+                        <div class="w-24 h-24 bg-white rounded-3xl mx-auto mb-8 flex items-center justify-center text-5xl shadow-xl border border-slate-100 transform rotate-12 hover:rotate-0 transition-transform duration-500">
                            <i data-lucide="shield-check" class="w-12 h-12 text-amber-500"></i>
                         </div>
                         <h4 class="text-2xl font-bold mb-4 text-slate-900">ثقتكم التزامنا</h4>
-                        <p class="text-slate-500 leading-relaxed mb-8">نضمن لك سرية تامة للبيانات ودقة متناهية في المخرجات المحاسبية.</p>
-                        <button class="w-full py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all shadow-lg shadow-slate-200">حجز موعد مقابلة</button>
+                        <p class="text-slate-500 leading-relaxed mb-8">نضمن لك سرية تامة للبيانات ودقة متناهية في المخرجات المحاسبية والضريبية.</p>
+                        <button onclick="window.location.href='https://wa.me/967771336725'" class="w-full py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all shadow-lg shadow-slate-200">حجز موعد استشارة</button>
                     </div>
                 </div>
             </div>
@@ -157,12 +197,7 @@
 
     <footer class="bg-white pt-16 pb-8 border-t border-slate-100">
         <div class="container mx-auto px-6 text-center">
-            <div class="flex justify-center space-x-6 space-x-reverse mb-8">
-                <a href="#" class="text-slate-400 hover:text-amber-500 transition-colors"><i data-lucide="linkedin"></i></a>
-                <a href="#" class="text-slate-400 hover:text-amber-500 transition-colors"><i data-lucide="twitter"></i></a>
-                <a href="#" class="text-slate-400 hover:text-amber-500 transition-colors"><i data-lucide="facebook"></i></a>
-            </div>
-            <p class="text-slate-500 font-medium italic">"الأرقام هي لغة الأعمال، ونحن المترجمون المحترفون لها"</p>
+            <p class="text-slate-500 font-medium italic mb-8">"الأرقام هي لغة الأعمال، ونحن المترجمون المحترفون لها"</p>
             <div class="mt-8 pt-8 border-t border-slate-50 text-slate-400 text-sm">
                 <p>&copy; 2026 رياض الخضمي. جميع الحقوق محفوظة.</p>
             </div>
@@ -171,9 +206,7 @@
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        // Initialize AOS (Animate on Scroll)
         AOS.init({ duration: 1000, once: true, offset: 100 });
-        // Initialize Lucide Icons
         lucide.createIcons();
     </script>
 </body>
